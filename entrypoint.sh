@@ -73,6 +73,9 @@ for repository in "${REPOSITORIES[@]}"; do
         git fetch && git checkout $BRANCH_NAME && git pull || git checkout -b $BRANCH_NAME
     fi
 
+    echo -n "Commit subject: "
+    git log --no-merges -n 1 --format='%s'
+
     echo " "
 
     # loop through all files
