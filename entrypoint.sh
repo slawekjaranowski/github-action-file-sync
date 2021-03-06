@@ -43,6 +43,11 @@ echo "Git initialized"
 
 echo " "
 
+LAST_GIT_SUBJECT=$(cd ${GITHUB_WORKSPACE} && git log --no-merges -n 1 --format='%s')
+echo "Lats commit subject: ${LAST_GIT_SUBJECT}"
+
+echo " "
+
 # loop through all the repos
 for repository in "${REPOSITORIES[@]}"; do
     echo "::group::$repository"
@@ -72,9 +77,6 @@ for repository in "${REPOSITORIES[@]}"; do
         # try to check out the origin, if fails, then create the local branch
         git fetch && git checkout $BRANCH_NAME && git pull || git checkout -b $BRANCH_NAME
     fi
-
-    echo -n "Commit subject: "
-    git log --no-merges -n 1 --format='%s'
 
     echo " "
 
